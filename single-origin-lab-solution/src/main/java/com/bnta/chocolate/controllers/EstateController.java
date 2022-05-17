@@ -24,6 +24,7 @@ public class EstateController {
         return new ResponseEntity<>(estateRepository.findAll(), HttpStatus.OK);
     }
 
+
     // SHOW
     @GetMapping(value = "/{id}") // localhost:8080/estates/1
     public ResponseEntity<Optional<Estate>> getEstate(@PathVariable Long id){

@@ -18,10 +18,16 @@ public class ChocolateController {
     @Autowired
     ChocolateRepository chocolateRepository;
 
-    // GET
-    @GetMapping //localhost:8080/chocolates
-    public ResponseEntity<List<Chocolate>> getAllChocolates(){
-        return new ResponseEntity<>(chocolateRepository.findAll(), HttpStatus.OK);
+//    // GET
+//    @GetMapping //localhost:8080/chocolates
+//    public ResponseEntity<List<Chocolate>> getAllChocolates(){
+//        return new ResponseEntity<>(chocolateRepository.findAll(), HttpStatus.OK);
+//    }
+
+    @GetMapping //localhost:8080/chocolates?
+    public ResponseEntity<List<Chocolate>> getAllChocolatesOfPercentageAbove60(
+            @RequestParam(name = "cocoaPercentage") int cocoaPercentage){
+        return new ResponseEntity<>(chocolateRepository.findByCocoaPercentageGreaterThanEqual(cocoaPercentage), HttpStatus.OK);
     }
 
     // SHOW
