@@ -24,10 +24,22 @@ public class ChocolateController {
 //        return new ResponseEntity<>(chocolateRepository.findAll(), HttpStatus.OK);
 //    }
 
-    @GetMapping //localhost:8080/chocolates?
-    public ResponseEntity<List<Chocolate>> getAllChocolatesOfPercentageAbove60(
-            @RequestParam(name = "cocoaPercentage") int cocoaPercentage){
-        return new ResponseEntity<>(chocolateRepository.findByCocoaPercentageGreaterThanEqual(cocoaPercentage), HttpStatus.OK);
+    // SIMPLE DERIVED QUERY
+//    @GetMapping //localhost:8080/chocolates?
+//    public ResponseEntity<List<Chocolate>> getAllChocolatesOfPercentageAbove60(
+//            @RequestParam(name = "cocoaPercentage") int cocoaPercentage){
+//        return new ResponseEntity<>(chocolateRepository.findByCocoaPercentageGreaterThanEqual(cocoaPercentage), HttpStatus.OK);
+//    }
+
+    // MERGED GETS
+    @GetMapping
+    public ResponseEntity<List<Chocolate>> getAllChocolatesAndFilters(
+            @RequestParam(required = false,name  = "cocoaPercentage") Integer cocoaPercentage
+    ) {
+        if(cocoaPercentage != null){
+            return new ResponseEntity<>(chocolateRepository.findByCocoaPercentageGreaterThanEqual(cocoaPercentage), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(chocolateRepository.findAll(), HttpStatus.OK);
     }
 
     // SHOW
